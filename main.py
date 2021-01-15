@@ -1,13 +1,16 @@
 import tkinter as tk
 from tkinter import messagebox
-from time import sleep
+import re
 
-
+def check_operand(string): 
+    for i in string:
+        if i in ["+","-","/","*","%"]:
+            return True
 def add_on_scr(input,scr_data):
-    if input in ["%","-","+","%","*","/","."]:
+    if input in ["%","-","+","%","*","/"]:
         data = scr_data.get()
         try:
-            if data[len(data) - 1] in ["%","-","+","%","*","/","."]:
+            if data[len(data) - 1] in ["%","-","+","%","*","/"]:
                 pass
             else:
                 expression = scr_data.get()
@@ -15,6 +18,28 @@ def add_on_scr(input,scr_data):
                 scr_data.set(expression)
         except:
             pass
+    elif input == ".":
+        data = scr_data.get()
+        if check_operand(data) != True:
+            if data.count(".",0, len(data)) < 1:
+                expression = scr_data.get()
+                expression += input
+                scr_data.set(expression)
+            else:
+                pass
+        else:
+            data = scr_data.get()
+            list_of_operators = list()
+            for i in range(0, len(data)):
+                if(data[i] in ["+","-","/","*","%"]):
+                    list_of_operators.append(i)
+            last_data = data[list_of_operators[len(list_of_operators) -1 ] + 1:]
+            if last_data.count(".", 0, len(last_data)) < 1:
+                expression = scr_data.get()
+                expression += input
+                scr_data.set(expression)
+            else:
+                pass
     else:
         expression = scr_data.get()
         expression += input
@@ -27,9 +52,15 @@ def give_anwser(scr_data):
     except ZeroDivisionError as e:
         messagebox.showinfo("Information","Infinte")
         scr_data.set("")
+    except NameError as e:
+        print(e)
+        messagebox.showerror("Error","Enter Integer and floats only!!")
+        scr_data.set("")
+    except SyntaxError as e:
+        print(e)
+        messagebox.showerror("Error","Please correct your expression!!")
     except Exception as e:
         print(e)
-        messagebox.showerror("Error","Enter Expression First!!")
 def clear_scr(scr_data):
     scr_data.set("")
 def Backspace(scr_data):
@@ -37,19 +68,23 @@ def Backspace(scr_data):
     data = data[:len(data)-1]
     scr_data.set(data)
 def put_sign(scr_data):
-    if len(scr_data.get()) < 1:
-        scr_data.set("-")
+    data = scr_data.get()
+    list_of_operators = []
+    if check_operand(data) != True:
+        scr_data.set("-" + scr_data.get())
     else:
-        data = scr_data.get()
-        last_data_with_sign = "("+"-" + data[len(data)-1:] + ")"
-        scr_data.set(data[:len(data)-1]+last_data_with_sign)
+        for i in range(0, len(data)):
+            if(data[i] in ["+","-","/","*","%"]):
+                list_of_operators.append(i)
+        last_data_with_sign = "("+"-" + data[list_of_operators[len(list_of_operators) -1 ] + 1:] + ")"
+        scr_data.set(data[:list_of_operators[len(list_of_operators) -1 ] + 1]+last_data_with_sign)
 #Main Function for whole programe.
 def main():
     main_win = tk.Tk()
     main_win.title("Calculator By D")
     main_win.geometry("313x500")
     main_win.minsize(313,500)
-    main_win.configure(bg = "#1d2d33")
+    main_win.configure(bg = "#325866")
     scr_data = tk.StringVar()
     #Entry for inputs in 
     display_entry = tk.Entry(main_win,
