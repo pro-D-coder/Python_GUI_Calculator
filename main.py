@@ -85,13 +85,13 @@ def put_sign(scr_data):
 def main():
     main_win = tk.Tk()
     main_win.title("Calculator By D")
-    main_win.geometry("346x500")
-    main_win.minsize(313,500)
+    main_win.geometry("298x500")
+    main_win.minsize(298,500)
     main_win.configure(bg = "#325866")
     scr_data = tk.StringVar()
     #Entry for inputs in 
     display_entry = tk.Entry(main_win,
-    width = 31,
+    width = 27,
     relief = tk.FLAT,
     justify = "right",
     bg = "#41575f",
