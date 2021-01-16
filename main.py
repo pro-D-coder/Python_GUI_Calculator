@@ -71,7 +71,10 @@ def put_sign(scr_data):
     data = scr_data.get()
     list_of_operators = []
     if check_operand(data) != True:
-        scr_data.set("-" + scr_data.get())
+        if len(data) >=1:
+            scr_data.set("-" + scr_data.get())
+        else:
+            return
     else:
         for i in range(0, len(data)):
             if(data[i] in ["+","-","/","*","%"]):
@@ -82,13 +85,13 @@ def put_sign(scr_data):
 def main():
     main_win = tk.Tk()
     main_win.title("Calculator By D")
-    main_win.geometry("313x500")
+    main_win.geometry("346x500")
     main_win.minsize(313,500)
     main_win.configure(bg = "#325866")
     scr_data = tk.StringVar()
     #Entry for inputs in 
     display_entry = tk.Entry(main_win,
-    width = 28,
+    width = 31,
     relief = tk.FLAT,
     justify = "right",
     bg = "#41575f",
@@ -251,7 +254,7 @@ def main():
     bd = 0,
     justify = "center",
     font = ("Consolas",14,"bold"),
-    padx = 34,
+    padx = 26,
     pady = 14,
     command = lambda:add_on_scr("+",scr_data),
     )
@@ -264,7 +267,7 @@ def main():
     bd = 0,
     justify = "center",
     font = ("Consolas",14,"bold"),
-    padx = 34,
+    padx = 26,
     pady = 24,
     command = lambda:add_on_scr("-",scr_data),
     )
@@ -277,7 +280,7 @@ def main():
     bd = 0,
     justify = "center",
     font = ("Consolas",14,"bold"),
-    padx = 34,
+    padx = 26,
     pady = 24,
     command = lambda:add_on_scr("*",scr_data),
     )
@@ -290,7 +293,7 @@ def main():
     bd = 0,
     justify = "center",
     font = ("Consolas",14,"bold"),
-    padx = 34,
+    padx = 26,
     pady = 24,
     command = lambda:add_on_scr("/",scr_data),
     )
@@ -303,7 +306,7 @@ def main():
     bd = 0,
     justify = "center",
     font = ("Consolas",14,"bold"),
-    padx = 34,
+    padx = 26,
     pady = 24,
     command = lambda:give_anwser(scr_data)
     )
