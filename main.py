@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox
-import re
 
 def check_operand(string): 
     for i in string:
@@ -83,8 +82,12 @@ def put_sign(scr_data):
             scr_data.set(data[:list_of_operators[len(list_of_operators) -1 ] + 1]+last_data_with_sign)
 def sqr_ans(scr_data):
     data = scr_data.get()
-    if check_operand(data) != True:
-        scr_data.set(eval(data)**2)
+    try:
+        if check_operand(data) != True:
+            if len(data) >= 1:
+                scr_data.set(eval(data)**2)
+    except:
+        pass
     else:
         try:
             list_of_operators = list()
@@ -389,7 +392,7 @@ def main():
     pady = 14,
     command = lambda:sqr_ans(scr_data),
     )
-
+    #placing all the widgets
     [
         button_for_1.place(x = 0,y = 166),
         button_for_2.place(x = 75,y = 166),
@@ -416,4 +419,4 @@ def main():
     ]
     main_win.mainloop()
 
-main()
+main() #calling the main function
