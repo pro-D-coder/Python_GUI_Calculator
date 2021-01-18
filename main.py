@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import math as m
 
 def check_operand(string): 
     for i in string:
@@ -96,6 +97,25 @@ def sqr_ans(scr_data):
                     list_of_operators.append(i)
             if len(data[list_of_operators[len(list_of_operators) -1 ] + 1:]) >= 1:
                 sqr_with_exp = data[:list_of_operators[len(list_of_operators) -1 ] + 1] + str(eval(data[list_of_operators[len(list_of_operators) -1 ] + 1:])**2)
+                scr_data.set(sqr_with_exp)
+        except:
+            pass
+def sqrt_ans(scr_data):
+    data = scr_data.get()
+    try:
+        if check_operand(data) != True:
+            if len(data) >= 1:
+                scr_data.set(m.sqrt(eval(data)))
+    except:
+        pass
+    else:
+        try:
+            list_of_operators = list()
+            for i in range(0, len(data)):
+                if(data[i] in ["+","-","÷","x","%"]):
+                    list_of_operators.append(i)
+            if len(data[list_of_operators[len(list_of_operators) -1 ] + 1:]) >= 1:
+                sqr_with_exp = data[:list_of_operators[len(list_of_operators) -1 ] + 1] + str(m.sqrt(eval(data[list_of_operators[len(list_of_operators) -1 ] + 1:])))
                 scr_data.set(sqr_with_exp)
         except:
             pass
@@ -392,6 +412,19 @@ def main():
     pady = 14,
     command = lambda:sqr_ans(scr_data),
     )
+    #Button for square root operation
+    button_for_sqrt = tk.Button(main_win,
+    text = "√",
+    bg = "#233b44",
+    fg = "#c9c5c2",
+    relief = tk.FLAT,
+    bd = 0,
+    justify = "center",
+    font = ("Consolas",14,"bold"),
+    padx = 26,
+    pady = 24,
+    command = lambda:sqrt_ans(scr_data),
+    )
     #placing all the widgets
     [
         button_for_1.place(x = 0,y = 166),
@@ -415,6 +448,7 @@ def main():
         button_for_bs.place(x = 75, y = 102),
         button_for_rem.place(x = 150, y = 102),
         button_for_sqr.place(x = 300, y = 102),
+        button_for_sqrt.place(x = 300,y = 166),
         display_entry.place(x = 0,y = 0,height = 100)
     ]
     main_win.mainloop()
