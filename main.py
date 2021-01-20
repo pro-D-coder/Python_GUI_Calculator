@@ -448,7 +448,7 @@ def main():
     bd = 0,
     justify = "right",
     font = ("Consolas",14,"bold"),
-    padx = 22,
+    padx = 21,
     pady = 14,
     command = lambda:x_power_a(scr_data),
     )
