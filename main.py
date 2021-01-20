@@ -1,25 +1,29 @@
-import tkinter as tk
-from tkinter import messagebox
-import math as m
+import tkinter as tk  #import Tkinter module for widegts
+from tkinter import messagebox #importing messagebox for showing Error dialog boxes
+import math as m #importing math module for doing fast mathematical operations
+#All Functions that required for calculatoin and adding signs
+
+#function that return true if the expression contains operators
 def check_operand(string): 
     for i in string:
         if i in ["+","-","÷","x","%","^"]:
             return True
+#function that add given input in Entry using buttons
 def add_on_scr(input,scr_data):
-    if input in ["%","-","+","%","x","÷"]:
-        data = scr_data.get()
+    if input in ["%","-","+","%","x","÷"]:   #if input is an operation
+        data = scr_data.get() #getting data form entry
         try:
-            if data[len(data) - 1] in ["%","-","+","%","x","÷","^","."]:
-                pass
+            if data[len(data) - 1] in ["%","-","+","%","x","÷","^","."]: #checking that if last part of entry is an symbol or not
+                pass #if yes  then do not add operators on screen
             else:
-                expression = scr_data.get()
+                expression = scr_data.get()  #Else add in entry 
                 expression += input
                 scr_data.set(expression)
         except:
             pass
-    elif input == ".":
-        data = scr_data.get()
-        if check_operand(data) != True:
+    elif input == ".": #checkinf if input is "."
+        data = scr_data.get() #getting data form entry
+        if check_operand(data) != True: #checking that expression contains operators or not
             if data.count(".",0, len(data)) < 1:
                 expression = scr_data.get()
                 expression += input
@@ -143,12 +147,13 @@ def CE_ope(scr_data):
         scr_data.set(new_value)
 #Main Function for whole programe.
 def main():
-    main_win = tk.Tk()
-    main_win.title("Calculator By D")
-    main_win.geometry("375x500")
-    main_win.configure(bg = "#325866")
-    scr_data = tk.StringVar()
-    #Entry for inputs in 
+    main_win = tk.Tk() #creating instance of TK class.
+    main_win.title("Calculator By D")  #setting up the window title
+    main_win.geometry("375x500") #setting up the window size
+    main_win.configure(bg = "#325866") #configuring main window background colour
+    scr_data = tk.StringVar() #variable that store expression for entry
+    
+    #Entry for inputs  
     display_entry = tk.Entry(main_win,
     width = 34,
     relief = tk.FLAT,
@@ -158,8 +163,7 @@ def main():
     font = ("Consolas",15,"bold"),
     textvariable = scr_data,
     )
-    display_entry.focus_set()
-
+    display_entry.focus_set() #setting the foucs to entry
 
     #Button for number 1
     button_for_1 = tk.Button(main_win,
@@ -369,7 +373,7 @@ def main():
     pady = 24,
     command = lambda:give_anwser(scr_data),
     )
-    #Button for +/- operation
+    #Button for +/- sign operation
     button_for_sign = tk.Button(main_win,
     text = "±",
     bg = "#233b44",
@@ -408,7 +412,7 @@ def main():
     pady = 14,
     command = lambda:Backspace(scr_data)
     )
-    #Button for % operation
+    #Button for %(reminder) operation
     button_for_rem = tk.Button(main_win,
     text = "%",
     bg = "#233b44",
@@ -421,7 +425,7 @@ def main():
     pady = 14,
     command = lambda:add_on_scr("%",scr_data),
     )
-    #Button for square operation
+    #Button for x to power a operation
     button_for_sqr = tk.Button(main_win,
     text = "xª",
     bg = "#233b44",
@@ -447,7 +451,7 @@ def main():
     pady = 24,
     command = lambda:sqrt_ans(scr_data),
     )
-    #Button for ( 
+    #Button for left bracket "("
     button_for_left_brac = tk.Button(main_win,
     text = "(",
     bg = "#233b44",
@@ -460,7 +464,7 @@ def main():
     pady = 24,
     command = lambda:add_on_scr("(", scr_data),
     )
-    #Button for ( 
+    #Button for right bracket ")"
     button_for_right_brac = tk.Button(main_win,
     text = ")",
     bg = "#233b44",
@@ -473,7 +477,7 @@ def main():
     pady = 24,
     command = lambda:add_on_scr(")", scr_data),
     )
-    #button for CE
+    #button for CE operation
     button_for_CE = tk.Button(main_win,
     text = "CE",
     bg = "#233b44",
@@ -488,33 +492,33 @@ def main():
     )
     #placing all the widgets
     [
-        button_for_1.place(x = 0,y = 166),
-        button_for_2.place(x = 75,y = 166),
-        button_for_3.place(x = 150,y = 166),
-        button_for_4.place(x = 0,y = 250),
-        button_for_5.place(x = 75,y = 250),
-        button_for_6.place(x = 150,y = 250),
-        button_for_7.place(x = 0,y = 334),
-        button_for_8.place(x = 75,y = 334),
-        button_for_9.place(x = 150,y = 334),
-        button_for_0.place(x = 75,y = 418),
-        button_for_clear.place(x = 0, y = 102),
-        button_for_sign.place(x = 0, y = 418),
-        button_for_dot.place(x = 150, y = 418),
-        button_for_add.place(x = 225, y = 102),
-        button_for_sub.place(x = 225, y = 166),
-        button_for_mul.place(x = 225, y = 250),
-        button_for_div.place(x = 225, y = 334),
-        button_for_eq.place(x = 225, y = 418),
-        button_for_bs.place(x = 75, y = 102),
-        button_for_rem.place(x = 150, y = 102),
-        button_for_sqr.place(x = 300, y = 102),
-        button_for_sqrt.place(x = 300,y = 166),
-        button_for_left_brac.place(x = 300, y = 250),
-        button_for_right_brac.place(x = 300, y = 334),
-        button_for_CE.place(x = 300, y = 418),
-        display_entry.place(x = 0,y = 0,height = 100)
+        button_for_1.place(x = 0,y = 166),              #
+        button_for_2.place(x = 75,y = 166),             #
+        button_for_3.place(x = 150,y = 166),            #
+        button_for_4.place(x = 0,y = 250),              #
+        button_for_5.place(x = 75,y = 250),             #
+        button_for_6.place(x = 150,y = 250),            #
+        button_for_7.place(x = 0,y = 334),              #
+        button_for_8.place(x = 75,y = 334),             #
+        button_for_9.place(x = 150,y = 334),            #
+        button_for_0.place(x = 75,y = 418),             #
+        button_for_clear.place(x = 0, y = 102),         #
+        button_for_sign.place(x = 0, y = 418),          #
+        button_for_dot.place(x = 150, y = 418),         #
+        button_for_add.place(x = 225, y = 102),         #
+        button_for_sub.place(x = 225, y = 166),         #
+        button_for_mul.place(x = 225, y = 250),         #
+        button_for_div.place(x = 225, y = 334),         #
+        button_for_eq.place(x = 225, y = 418),          #
+        button_for_bs.place(x = 75, y = 102),           #
+        button_for_rem.place(x = 150, y = 102),         #
+        button_for_sqr.place(x = 300, y = 102),         #
+        button_for_sqrt.place(x = 300,y = 166),         #
+        button_for_left_brac.place(x = 300, y = 250),   #
+        button_for_right_brac.place(x = 300, y = 334),  #
+        button_for_CE.place(x = 300, y = 418),          #
+        display_entry.place(x = 0,y = 0,height = 100)   #placing End Here
     ]
-    main_win.mainloop()
+    main_win.mainloop() #mainloop always required
 
 main() #calling the main function
